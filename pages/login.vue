@@ -6,7 +6,10 @@
             <input id="email" type="text" placeholder="email" v-model="email"/>
             <label for="password">Password</label>
             <input id="password" type="password" placeholder="password" v-model="password"/>
-            <button class="submit" @click="connectUser()"> Login </button>
+            <div class="element">
+                <a class="forgot" href="/forgotpassword">Forgot password</a>
+                <button class="submit" @click="connectUser()"> Login </button>
+            </div>
             <div class="createAccount">
                 <router-link to="/register">Create your account</router-link>
             </div>
@@ -27,8 +30,11 @@ async function connectUser() {
         email: email.value,
         password: password.value,
     })
+    if (error) {
+        console.error(error)
+        return
+    }
     console.log(data)
-    console.error(error)
     return navigateTo("/")
 }
 </script>
@@ -45,7 +51,14 @@ async function connectUser() {
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         text-align: center;
     }
-
+    .forgot {
+        color: #e74c3c;
+        padding-right: 20px;
+    }
+    .element {
+        display: flex;
+        align-items: column;
+    }
     label {
         display: block;
         margin-bottom: 12px;

@@ -5,7 +5,7 @@
             <sneakersCard v-for="sneaker in sneakers_data" :sneaker="sneaker" />
       </div>
       <!-- <pagination /> -->
-      <UPagination class="pagination" :max="5" v-model="pagination" :page-count="493" :total="49214" />
+      <UPagination class="pagination" :max="5" v-model="pagination" :page-count="32" :total="49214" />
 </template>
 
 <script setup>

@@ -13,7 +13,9 @@
                 <div class="input-field">
                   <input id="name" type="text" placeholder="Search..." required />
                 </div>
-                <button class="login"><a href="/login">LOGIN</a></button>
+                  <UDropdown :items="items" :popper="{ offsetDistance: 0, placement: 'right-start' }">
+                    <button class="login">LOGIN</button>
+                  </UDropdown>
               </div>
             </nav>
             <div class="bar">
@@ -23,6 +25,35 @@
             </div>
           </div>
 </template>
+
+<script setup lang="js">
+const user = useSupabaseUser()
+const supabase = useSupabaseClient()
+const items = user.value
+  ? [
+    [{
+      label: user.value.email,
+    }],
+    [{
+      label: "Log Out",
+      click: async () => {
+        const { error } = await supabase.auth.signOut();
+        reloadNuxtApp();
+      }
+    }],
+  ]
+  :
+  [
+    [{
+      label: "Login",
+      to: "/login"
+    }],
+    [{
+      label: "Register",
+      to: "/register"
+    }],
+  ]
+</script>
 
 <style>
 .div_header {
@@ -48,7 +79,7 @@
 }
 button.login {
         background-color: #ffffff;
-        color: #fff;
+        color: #000000;
         padding: 12px 20px;
         margin-top: 15px;
         border: none;
@@ -82,7 +113,7 @@ a {
   width: 300px;
   height: 44px;
   line-height: 44px;
-  width: 80%;
+  width: 75%;
 }
 input {
   border: 0;
