@@ -1,25 +1,34 @@
 <template>
     <div>
-        <form id="register-form">
+        <article id="register-form">
             <h2>Register</h2>
             <label for="Name">First Name</label>
             <input id="name" type="text" placeholder="name" />
             <label for="Surname">Last Name</label>
             <input id="surname" type="text" placeholder="surname" />
             <label for="email">Email</label>
-            <input id="email" type="text" placeholder="email" />
+            <input id="email" type="text" placeholder="email" v-model="email"/>
             <label for="password">Password</label>
-            <input id="password" type="password" placeholder="password" />
-            <button class="submit" v-on:click="CreateUser"> Create account </button>
-            <div id="error">
-                <p id="errorCreate" class="errorCreate"> </p>
-            </div>
-        </form>
+            <input id="password" type="password" placeholder="password" v-model="password"/>
+            <button class="submit" @click="createUser()"> Create account </button>
+        </article>
     </div>
 </template>
 
 
-<script>
+<script setup lang="ts">
+const email= ref("")
+const password= ref("")
+const supabase = useSupabaseClient()
+async function createUser() {
+    const { data, error } = await supabase.auth.signUp({
+        email: email.value,
+        password: password.value,
+    })
+    console.log(data)
+    console.error(error)
+    return navigateTo("/")
+}
 </script>
 
 <style lang="css" scoped>

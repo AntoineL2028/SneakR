@@ -1,24 +1,36 @@
 <template>
     <div>
-        <form id="login-form">
+        <div id="login-form">
             <h2>Login</h2>
             <label for="email">Email</label>
-            <input id="email" type="text" placeholder="email" />
+            <input id="email" type="text" placeholder="email" v-model="email"/>
             <label for="password">Password</label>
-            <input id="password" type="password" placeholder="password" />
-            <button class="submit" v-on:click="loginUser"> Login </button>
+            <input id="password" type="password" placeholder="password" v-model="password"/>
+            <button class="submit" @click="connectUser()"> Login </button>
             <div class="createAccount">
                 <router-link to="/register">Create your account</router-link>
             </div>
             <div id="error">
                 <p id="errorLogin" class="errorLogin"> </p>
             </div>
-        </form>
+        </div>
     </div>
 </template>
 
 
-<script>
+<script setup lang="ts">
+const email = ref("")
+const password = ref("")
+const supabase = useSupabaseClient()
+async function connectUser() {
+    const { data, error } = await supabase.auth.signInWithPassword({
+        email: email.value,
+        password: password.value,
+    })
+    console.log(data)
+    console.error(error)
+    return navigateTo("/")
+}
 </script>
 
     <style lang="css" scoped>

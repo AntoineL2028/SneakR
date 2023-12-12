@@ -1,14 +1,23 @@
 <template>
         <article class="sneaker_card">
-            <img class="img" :src="sneaker['image.small']" alt="image of sneakers">
-            <p> {{ sneaker.name }} </p>
-            <p>From ${{ sneaker.estimatedMarketValue }}</p>
-            <button @click="add_wishlist()" class="button">
-                <img class="heart" id="btnHeart" :src="currentSrc" alt="black heart">
-            </button>
-            <button class="button">
-                <img class="box" src="assets/box_collection.png" alt="box collection">
-            </button>
+            <a :href="'/details/' + props.sneaker.id">
+          <img class="img" :src="sneaker['image.small']" alt="image of sneakers">
+        </a>
+        <a :href="'/details/' + props.sneaker.id">
+          <p>{{ sneaker.name }}</p>
+        </a>
+            <div class="line">
+                <p>From ${{ sneaker.estimatedMarketValue }}</p>
+                <!-- <react /> VOIR POUR CE COMPONENT-->
+                <div class="allButton">
+                    <button @click="add_wishlist()" class="button">
+                        <img class="heart" id="btnHeart" :src="currentSrc" alt="black heart">
+                    </button>
+                    <button class="button">
+                        <img class="box" src="assets/box_collection.png" alt="box collection">
+                    </button>
+                </div>
+            </div>
         </article>
 </template>
 
@@ -24,22 +33,31 @@ function add_wishlist() {
     }
 }
 </script>
-
 <style>
-
 .img {
     background-color: #F0F0F2;
+    width: 250px;
+    height: 250px;
 }
 .heart {
-    width: 50px;
-    height : 40px;
+    width: 40px;
+    height : 30px;
 }
 .box {
-    width: 50px;
-    height: 40px;
+    width: 40px;
+    height: 30px;
 }
 .button {
     background-color: white;
     border: none;
+    margin-bottom: 50px;
+    position: relative;
+    margin-top: 5px;
+}
+.allButton {
+    margin-left: 80px;
+}
+.line {
+    display: flex;
 }
 </style>
